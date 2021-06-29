@@ -24,7 +24,7 @@ const DInitFun = function (handler) {
       }
     }
     const oldData = ele[id]
-    const value = binding.value?.toString() || undefined
+    const value = binding.value && binding.value.toString() || undefined
     if (oldData.oldValue !== value) {
       oldData.oldValue = value
       if (oldData.oldCallback) {
