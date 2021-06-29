@@ -1,7 +1,7 @@
 {
   "name": "vue-input-directive",
   "version": "1.0.0",
-  "description": "",
+  "description": "vue limit input directive,validate input",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
