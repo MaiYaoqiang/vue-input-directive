@@ -1,3 +1,6 @@
+## codepen地址
+https://codepen.io/maiyaoqiang/pen/rNmVNXa?editors=1010
+
 # 用法
 
 已兼容vue3.0
@@ -60,11 +63,11 @@ Vue.use(inputValidate)
 只能输入数字和字母和中文
 ```js
 import Vue from 'vue'
-import {DinitFun} from 'vue-input-directive'
+import {DInitFun} from 'vue-input-directive'
 // 只能输入数字和字母
 Vue.directive(
   'd-input-num-en',
-  DinitFun((ele, binding) => {
+  DInitFun((ele, binding) => {
       let value = ele.value + ''
       const reg = /[a-zA-Z0-9\u4E00-\u9FA5]*/
       const matchRes = value.match(reg)
