@@ -11,7 +11,8 @@ const compositionend = (e) => {
   trigger(e.target, 'input')
 }
 let initId = 0
-const DInitFun = function (handler) {
+// 生成绑定方法
+const getBindFun = function (handler) {
   const id = initId++
   const bindFun = (el, binding) => {
     const ele = el.tagName === 'INPUT' ? el : el.querySelector('input')
@@ -47,12 +48,21 @@ const DInitFun = function (handler) {
       oldData.oldCallback = callback
     }
   }
+  return bindFun
+}
+// 生成对应指令需要的生命周期的列表
+const getBindListFun = function (bindFun) {
   return {
     mounted: bindFun,
     updated: bindFun,
     inserted: bindFun,
     update: bindFun,
   }
+}
+// 生成指令对象方法
+const DInitFun = function (handler) {
+  const bindFun = getBindFun(handler)
+  return getBindListFun(bindFun)
 }
 
 // 输入数字限制最大值
@@ -150,13 +160,27 @@ const DInputRegexp = (ele, binding) => {
   ele.value = value
 }
 
+const inputMax = DInitFun(DInputMax)
+const inputInt = DInitFun(DInputInt)
+const inputPoint2 = DInitFun(DInputPoint2)
+const inputEn = DInitFun(DInputEn)
+const inputRegexp = DInitFun(DInputRegexp)
+
 export {
+  inputMax,
+  inputInt,
+  inputPoint2,
+  inputEn,
+  inputRegexp,
   DInitFun,
+  getBindFun,
+  getBindListFun,
 }
+
 export default (Vue) => {
-  Vue.directive('d-input-max', DInitFun(DInputMax))
-  Vue.directive('d-input-int', DInitFun(DInputInt))
-  Vue.directive('d-input-point2', DInitFun(DInputPoint2))
-  Vue.directive('d-input-en', DInitFun(DInputEn))
-  Vue.directive('d-input-regexp', DInitFun(DInputRegexp))
+  Vue.directive('d-input-max', inputMax)
+  Vue.directive('d-input-int', inputInt)
+  Vue.directive('d-input-point2', inputPoint2)
+  Vue.directive('d-input-en', inputEn)
+  Vue.directive('d-input-regexp', inputRegexp)
 }
